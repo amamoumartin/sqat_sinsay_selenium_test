@@ -1,12 +1,16 @@
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProfilePage extends BasePage{
 
     private final By InvoiceStreet = By.xpath("//input[@id='invoice-street0' and @name='invoice1[street][0]']");
     private final By InvoiceStreetNum = By.xpath("//input[@id='invoice-street1' and @name='invoice1[street][1]']");
-    private final By SubmitButton = By.xpath("//button[contains(@class, 'btn-imp') and contains(text(), 'ment')]");
+    private final By SubmitButton = By.cssSelector("div.form-submit-section > button[type='submit']");
 
     private WebElement streetInput;
     private WebElement streetNumInput;
@@ -17,7 +21,7 @@ public class ProfilePage extends BasePage{
     }
     
     public void GotoBillingData(){
-        WebElement changeBillingDataButton = waitVisibiiltyAndFindElement(By.id("customer-invoices-link"));
+        WebElement changeBillingDataButton = waitVisibiiltyAndFindElement(By.xpath("//a[contains(@href, 'billing-data')]"));
         changeBillingDataButton.click();
     }
 
@@ -25,11 +29,15 @@ public class ProfilePage extends BasePage{
         streetInput = waitVisibiiltyAndFindElement(InvoiceStreet);
         streetNumInput = waitVisibiiltyAndFindElement(InvoiceStreetNum);
 
-        streetInput.sendKeys("TesztUtca");
+        streetInput.sendKeys("Utca");
         streetNumInput.sendKeys("2");
 
-        WebElement submitBtn = waitVisibiiltyAndFindElement(SubmitButton);
-        submitBtn.click();
+        WebElement formContainer = waitVisibiiltyAndFindElement(By.id("customer-invoices-form"));
+
+        WebElement submitButton = new WebDriverWait(driver, Duration.ofSeconds(20))
+        .until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(formContainer, By.cssSelector("div.form-submit-section > button[type='submit']")))
+        .get(0);
+        submitButton.click();
     }
 
     public String GetInvoiceStreetValue(){

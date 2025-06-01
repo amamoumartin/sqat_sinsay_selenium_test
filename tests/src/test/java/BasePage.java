@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.By;
 
@@ -12,8 +13,8 @@ public class BasePage {
     protected WebDriverWait wait;
 
     private final By acceptCookiesButtonLocator = By.id("cookiebotDialogOkButton");
-    private final By loggedInUsernameLink = By.cssSelector("div[data-testid='account-info-logged-true'] > div.ds-dropdown-button > a");
-    private final By loggetOutUsernameLink = By.cssSelector("div[data-testid='account-info-logged-false'] > div.ds-dropdown-button > a");
+    private final By loggedInUsernameLink = By.cssSelector("div[data-testid='account-info-logged-true'] a");
+    private final By loggedOutUsernameLink = By.cssSelector("div[data-testid='account-info-logged-false'] a");
     private final By logoutButton = By.xpath("//li[@data-testid='logout']/a");
 
     public BasePage(WebDriver driver) {
@@ -42,23 +43,29 @@ public class BasePage {
     }
 
     public String getLoggedInUsername() {
+        hoveronUserButton();
         WebElement usernameElement = waitVisibiiltyAndFindElement(loggedInUsernameLink);
         return usernameElement.getText().trim();
     }
 
     public String getLoggedOutUserName(){
-        WebElement usernameElement = waitVisibiiltyAndFindElement(loggetOutUsernameLink);
+        hoveronUserButton();
+        WebElement usernameElement = waitVisibiiltyAndFindElement(loggedOutUsernameLink);
         return usernameElement.getText().trim();
     }
 
     public ProfilePage goToProfilePage() {
-        WebElement profileLink = waitVisibiiltyAndFindElement(loggedInUsernameLink);
-        profileLink.click();
         return new ProfilePage(driver);
     }
 
     public void logout(){
         WebElement logoutBtn = waitVisibiiltyAndFindElement(logoutButton);
         logoutBtn.click();
+    }
+
+    private void hoveronUserButton(){
+        WebElement btn = waitVisibiiltyAndFindElement(By.id("accountRoot"));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(btn).perform();
     }
 }

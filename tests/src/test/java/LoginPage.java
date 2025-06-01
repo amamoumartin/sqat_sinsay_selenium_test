@@ -44,9 +44,4 @@ public class LoginPage extends BasePage{
         WebElement loginButton = waitVisibiiltyAndFindElement(submitButton);
         loginButton.click();
     }
-
-    
-
-    
-
 }

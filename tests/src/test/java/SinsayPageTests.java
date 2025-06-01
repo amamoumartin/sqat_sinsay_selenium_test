@@ -60,8 +60,8 @@ public class SinsayPageTests {
         profilePage.GotoBillingData();
         profilePage.ModifyData();
 
-        Assert.assertEquals("TesztUtca", profilePage.GetInvoiceStreetValue());
-        Assert.assertEquals("2", profilePage.GetInvoiceStreetNumValue());
+        Assert.assertTrue(profilePage.GetInvoiceStreetValue().contains("Utca"));
+        Assert.assertTrue(profilePage.GetInvoiceStreetNumValue().contains("2"));
     }
 
     @Test

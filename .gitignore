@@ -24,3 +24,70 @@ hs_err_pid*
 replay_pid*
 
 src/test/resources/config.properties
+
+# === Java / IntelliJ / Eclipse ===
+*.class
+*.log
+*.tmp
+*.swp
+*.iml
+*.ipr
+*.iws
+
+# === Compiled binary files ===
+bin/
+out/
+target/
+
+# === Build tools ===
+# Maven
+.mvn/
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+.vs/
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# === IDEs ===
+# IntelliJ
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# === OS specific ===
+.DS_Store
+Thumbs.db
+
+# === Logs and temp files ===
+logs/
+*.log
+*.pid
+
+# === Selenium WebDriver ===
+selenium.log
+webdriver.log
+
+# === Environment files ===
+.env
+*.keystore
+
+# === Test Reports ===
+test-output/
+surefire-reports/
+screenshots/
+
+/tests/.gradle/
+/tests/build/
